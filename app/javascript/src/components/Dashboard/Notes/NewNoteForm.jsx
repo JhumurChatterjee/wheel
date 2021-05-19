@@ -1,7 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
-import { Input, Textarea } from "neetoui/formik";
+import { Input, Textarea, Select } from "neetoui/formik";
 import { Button } from "neetoui";
 import notesApi from "apis/notes";
 
@@ -25,12 +25,40 @@ export default function NewNoteForm({ onClose, refetch }) {
       validationSchema={yup.object({
         title: yup.string().required("Title is required"),
         description: yup.string().required("Description is required"),
+        tag: yup.string().required("Tag is required"),
+        contact_id: yup.string().required("Contact is required"),
       })}
     >
       {({ isSubmitting }) => (
         <Form>
-          <Input label="Title" name="title" className="mb-6" />
-          <Textarea label="Description" name="description" rows={8} />
+          <Input label="Note Title" name="title" className="mb-6" />
+          <Select
+            label="Tag"
+            defaultValue={{ value: "internal", label: "Internal" }}
+            placeholder="Select an Option"
+            isSearchable={true}
+            name="tag"
+            className="mb-6"
+            options={[
+              { value: "internal", label: "Internal" },
+              { value: "agile_workflow", label: "Agile Workflow" },
+              { value: "bug", label: "Bug" },
+            ]}
+          />
+          <Textarea
+            label="Note Description"
+            name="description"
+            rows={8}
+            className="mb-6"
+          />
+          <Select
+            label="Contact"
+            placeholder="Select an Option"
+            isSearchable={true}
+            name="contact_id"
+            className="mb-6"
+            options={[{ value: "111", label: "ABC" }]}
+          />
           <div className="nui-pane__footer nui-pane__footer--absolute">
             <Button
               onClick={onClose}
