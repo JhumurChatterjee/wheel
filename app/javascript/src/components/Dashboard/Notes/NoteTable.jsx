@@ -111,7 +111,7 @@ export default function NoteTable({
                   <a href="#">{note.title}</a>
                 </div>
               </td>
-              <td>{descTruncate(note.description, 3)}</td>
+              <td>{descTruncate(note.description, 10)}</td>
               <td className="text-center">
                 <Badge color={badgeColor(note.tag)}>
                   {note.tag ? titleCase(note.tag) : ""}
