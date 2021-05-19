@@ -16,10 +16,15 @@ const Notes = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedNoteIds, setSelectedNoteIds] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetchNotes();
   }, []);
+
+  const handleColumnFilter = () => {
+    return true;
+  };
 
   const fetchNotes = async () => {
     try {
@@ -43,7 +48,7 @@ const Notes = () => {
         actionBlock={
           <Button
             onClick={() => setShowNewNotePane(true)}
-            label="Add New Note"
+            label="New Note"
             icon="ri-add-line"
           />
         }
@@ -60,20 +65,41 @@ const Notes = () => {
               onClick: () => setShowDeleteAlert(true),
               disabled: !selectedNoteIds.length,
             }}
+            paginationProps={{
+              count: notes.length,
+              pageSize: 10,
+              pageNo: currentPage,
+              navigate: pageNo => setCurrentPage(pageNo),
+            }}
+            sortProps={{
+              options: [
+                {
+                  label: "Description",
+                  value: "description",
+                  direction: "asc",
+                },
+                {
+                  label: "Name",
+                  value: "name",
+                  direction: "asc",
+                },
+              ],
+            }}
+            toggleFilter={val => handleColumnFilter(val)}
           />
           <NoteTable
             selectedNoteIds={selectedNoteIds}
             setSelectedNoteIds={setSelectedNoteIds}
             notes={notes}
+            setNotes={setNotes}
           />
         </>
       ) : (
         <EmptyState
           image={EmptyNotesListImage}
-          title="Looks like you don't have any notes!"
-          subtitle="Add your notes to send customized emails to them."
+          title="Your Notes list is empty"
           primaryAction={() => setShowNewNotePane(true)}
-          primaryActionLabel="Add New Note"
+          primaryActionLabel="Add Note"
         />
       )}
       <NewNotePane

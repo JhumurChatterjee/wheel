@@ -4,8 +4,7 @@ class Api::V1::NotesController < Api::V1::BaseController
   before_action :load_note, only: [:show, :delete]
 
   def index
-    notes = current_user.notes
-    render json: notes
+    @notes = current_user.notes
   end
 
   def create
@@ -24,7 +23,7 @@ class Api::V1::NotesController < Api::V1::BaseController
     else
       notes_count = notes.size
       notes.destroy_all
-      render json: { notice: "#{notes_count} notes has been added deleted." }
+      render json: { notice: "#{notes_count} notes deleted successfully." }
     end
   end
 
