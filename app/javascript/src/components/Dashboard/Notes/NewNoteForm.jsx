@@ -1,25 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Input, Textarea, Select } from "neetoui/formik";
-import { Button, Switch } from "neetoui";
+import { Button, Switch, PageLoader } from "neetoui";
 import notesApi from "apis/notes";
+import contactsApi from "apis/contacts";
 
 export default function NewNoteForm({ onClose, refetch }) {
   const [dueDateEnable, setDueDateEnable] = useState(false);
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  const fetchContacts = async () => {
+    try {
+      setLoading(true);
+      const response = await contactsApi.fetch();
+      setContacts(response.data);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleDueDateEnable = () => {
     setDueDateEnable(!dueDateEnable);
   };
 
-  const numbers = ["65", "65"];
-
-  const newarray = numbers.map(() => {
-    return { label: "65", value: "65" };
+  const contactList = contacts.map(contact => {
+    return { label: contact.initial, value: contact.id };
   });
 
   const handleSubmit = async values => {
-    values = { ...values, tag: values.tag.value };
+    values = {
+      ...values,
+      tag: values.tag.value,
+      contact_id: values.contact_id.value,
+    };
 
     try {
       await notesApi.create(values);
@@ -29,6 +50,11 @@ export default function NewNoteForm({ onClose, refetch }) {
       logger.error(err);
     }
   };
+
+  if (loading) {
+    return <PageLoader />;
+  }
+
   return (
     <Formik
       initialValues={{
@@ -52,7 +78,6 @@ export default function NewNoteForm({ onClose, refetch }) {
           <Select
             label="Tag"
             name="tag"
-            defaultValue={{ value: "internal", label: "Internal" }}
             className="mb-6"
             options={[
               { label: "Internal", value: "internal" },
@@ -71,7 +96,7 @@ export default function NewNoteForm({ onClose, refetch }) {
           <Select
             label="Contact"
             name="contact_id"
-            options={newarray}
+            options={contactList}
             className="mb-6"
           />
 
@@ -79,7 +104,7 @@ export default function NewNoteForm({ onClose, refetch }) {
             <label>Add Due Date to Note</label>
 
             <Switch
-              name="sell"
+              name="Basecamp"
               value="Y"
               checked={dueDateEnable === true}
               onChange={() => {

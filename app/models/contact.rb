@@ -8,7 +8,7 @@ class Contact < ApplicationRecord
 
   validates :first_name, :last_name, :department, :contact_number, presence: true, length: { maximum: 255 }
   validates :add_to_basecamp, inclusion: { in: [ true, false ] }
-  validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
+  validates :email, presence: true, uniqueness: { case_sensitivity: false }, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
   def initial
     "#{first_name} #{last_name}"

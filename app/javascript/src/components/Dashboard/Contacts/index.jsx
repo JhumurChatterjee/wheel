@@ -4,12 +4,14 @@ import { Button, PageLoader } from "neetoui";
 import EmptyState from "components/Common/EmptyState";
 import EmptyNotesListImage from "images/EmptyNotesList";
 import { Header, SubHeader } from "neetoui/layouts";
+import NewContactPane from "./NewContactPane";
 
 import ContactTable from "./ContactTable";
 import DeleteAlert from "../../Common/DeleteAlert";
 
 const Contacts = () => {
   const [loading, setLoading] = useState(true);
+  const [showNewContactPane, setShowNewContactPane] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContactIds, setSelectedContactIds] = useState([]);
@@ -43,7 +45,13 @@ const Contacts = () => {
     <>
       <Header
         title="Contacts"
-        actionBlock={<Button label="New Contact" icon="ri-add-line" />}
+        actionBlock={
+          <Button
+            label="New Contact"
+            icon="ri-add-line"
+            onClick={() => setShowNewContactPane(true)}
+          />
+        }
       />
       {contacts.length ? (
         <>
@@ -89,10 +97,17 @@ const Contacts = () => {
       ) : (
         <EmptyState
           image={EmptyNotesListImage}
+          primaryAction={() => setShowNewContactPane(true)}
           title="Your Contacts list is empty"
           primaryActionLabel="Add Contact"
         />
       )}
+
+      <NewContactPane
+        showPane={showNewContactPane}
+        setShowPane={setShowNewContactPane}
+        fetchContacts={fetchContacts}
+      />
 
       {showDeleteAlert && (
         <DeleteAlert
