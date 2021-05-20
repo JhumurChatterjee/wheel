@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Checkbox, Badge, Avatar, Button, Tooltip, PageLoader } from "neetoui";
 import moment from "moment";
 import notesApi from "apis/notes";
-import DeleteAlert from "./DeleteAlert";
+import DeleteAlert from "../../Common/DeleteAlert";
 
 export default function NoteTable({
   selectedNoteIds,
@@ -154,7 +154,8 @@ export default function NoteTable({
               <td>
                 {showDeleteAlert && (
                   <DeleteAlert
-                    selectedNoteIds={[note.id]}
+                    module={"notes"}
+                    selectedIds={[note.id]}
                     onClose={() => setShowDeleteAlert(false)}
                     refetch={fetchNotes}
                     msg={

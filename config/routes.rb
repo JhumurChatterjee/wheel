@@ -40,6 +40,12 @@ Rails.application.routes.draw do
           post 'bulk_delete'
         end
       end
+
+      resources :contacts, only: [:index, :create] do
+        collection do
+          post 'bulk_delete'
+        end
+      end
     end
   end
 

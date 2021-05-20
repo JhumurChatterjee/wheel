@@ -13,7 +13,12 @@ export default function AccountDropdown({ handleLogout }) {
       position="right-top"
       interactionKind="hover"
       customTarget={() => (
-        <Avatar className="cursor-pointer" size={32} contact={contact} />
+        <Avatar
+          className="cursor-pointer"
+          size={32}
+          contact={contact}
+          bgClassName="bg-blue-300"
+        />
       )}
       closeOnSelect
     >
