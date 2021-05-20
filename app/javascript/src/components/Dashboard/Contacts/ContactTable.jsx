@@ -11,6 +11,7 @@ export default function ContactTable({
 }) {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [deletingContact, setDeletingContact] = useState("");
 
   useEffect(() => {
     fetchContacts();
@@ -26,6 +27,11 @@ export default function ContactTable({
     } finally {
       setLoading(false);
     }
+  };
+
+  const setDeletingRecord = noteId => {
+    setShowDeleteAlert(true);
+    setDeletingContact(noteId);
   };
 
   if (loading) {
@@ -114,28 +120,26 @@ export default function ContactTable({
                   <Button
                     style="icon"
                     icon="ri-delete-bin-line"
-                    onClick={() => setShowDeleteAlert(true)}
+                    onClick={() => setDeletingRecord(contact.id)}
                   />
                 </Tooltip>
-              </td>
-
-              <td>
-                {showDeleteAlert && (
-                  <DeleteAlert
-                    module={"contacts"}
-                    selectedIds={[contact.id]}
-                    onClose={() => setShowDeleteAlert(false)}
-                    refetch={fetchContacts}
-                    msg={
-                      "Are you sure you want to delete the contact? All of your data will be permanently removed from our database forever. This action cannot be undone."
-                    }
-                  />
-                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {showDeleteAlert && (
+        <DeleteAlert
+          module={"contacts"}
+          selectedIds={[deletingContact]}
+          onClose={() => setShowDeleteAlert(false)}
+          refetch={fetchContacts}
+          msg={
+            "Are you sure you want to delete the contact? All of your data will be permanently removed from our database forever. This action cannot be undone."
+          }
+        />
+      )}
     </div>
   );
 }

@@ -3,7 +3,13 @@ import { Modal } from "neetoui";
 import notesApi from "apis/notes";
 import contactsApi from "apis/contacts";
 
-export default function DeleteAlert({ refetch, onClose, selectedIds, module, msg = null }) {
+export default function DeleteAlert({
+  refetch,
+  onClose,
+  selectedIds,
+  module,
+  msg = null,
+}) {
   const [deleting, setDeleting] = useState(false);
   const api = module === "notes" ? notesApi : contactsApi;
   const handleDelete = async () => {
@@ -42,7 +48,7 @@ export default function DeleteAlert({ refetch, onClose, selectedIds, module, msg
             Delete{" "}
             {selectedIds.length === 1
               ? module.replace("s", "")
-              : `${selectedIds.length} {module}?`}
+              : `${selectedIds.length} ${module}?`}
           </h3>
           <div className="text-sm leading-5 text-gray-500">
             {msg

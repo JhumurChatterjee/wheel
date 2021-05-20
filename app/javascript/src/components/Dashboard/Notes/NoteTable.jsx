@@ -12,6 +12,7 @@ export default function NoteTable({
 }) {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [deletingNote, setDeletingNote] = useState("");
 
   useEffect(() => {
     fetchNotes();
@@ -48,6 +49,11 @@ export default function NoteTable({
 
   const descTruncate = (string, limit) => {
     return string.length > limit ? `${string.substr(0, limit)}...` : string;
+  };
+
+  const setDeletingRecord = noteId => {
+    setShowDeleteAlert(true);
+    setDeletingNote(noteId);
   };
 
   if (loading) {
@@ -146,28 +152,26 @@ export default function NoteTable({
                   <Button
                     style="icon"
                     icon="ri-delete-bin-line"
-                    onClick={() => setShowDeleteAlert(true)}
+                    onClick={() => setDeletingRecord(note.id)}
                   />
                 </Tooltip>
-              </td>
-
-              <td>
-                {showDeleteAlert && (
-                  <DeleteAlert
-                    module={"notes"}
-                    selectedIds={[note.id]}
-                    onClose={() => setShowDeleteAlert(false)}
-                    refetch={fetchNotes}
-                    msg={
-                      "Are you sure you want to delete the note? All of your data will be permanently removed from our database forever. This action cannot be undone."
-                    }
-                  />
-                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {showDeleteAlert && (
+        <DeleteAlert
+          module={"notes"}
+          selectedIds={[deletingNote]}
+          onClose={() => setShowDeleteAlert(false)}
+          refetch={fetchNotes}
+          msg={
+            "Are you sure you want to delete the note? All of your data will be permanently removed from our database forever. This action cannot be undone."
+          }
+        />
+      )}
     </div>
   );
 }
