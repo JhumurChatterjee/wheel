@@ -10,7 +10,7 @@ class Api::V1::NotesController < Api::V1::BaseController
   def create
     @note = Note.new(note_params.merge(user: current_user))
     if @note.save
-      render json: { note: @note, notice: "#{@note.title.humanize} has been added to your notes!" }
+      render json: { note: @note, notice: "New Note added successfully." }
     else
       render json: { error: @note.errors.full_messages.to_sentence }, status: 422
     end
@@ -23,7 +23,7 @@ class Api::V1::NotesController < Api::V1::BaseController
     else
       notes_count = notes.size
       notes.destroy_all
-      render json: { notice: "#{notes_count} notes deleted successfully." }
+      render json: { notice: "Note deleted successfully." }
     end
   end
 

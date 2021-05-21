@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Button, Tooltip, PageLoader } from "neetoui";
+import { Checkbox, Button, Tooltip, PageLoader, Avatar } from "neetoui";
 import contactsApi from "apis/contacts";
 import DeleteAlert from "../../Common/DeleteAlert";
 
@@ -60,10 +60,10 @@ export default function ContactTable({
               />
             </th>
             <th className="text-left">Name</th>
-            <th className="text-center">Email</th>
+            <th className="text-left">Email</th>
             <th className="text-center">Department</th>
             <th className="text-center">Contact Number</th>
-            <th className="text-left">Add to Basecamp</th>
+            <th className="text-center">Add to Basecamp</th>
           </tr>
         </thead>
         <tbody>
@@ -95,14 +95,19 @@ export default function ContactTable({
               </td>
               <td>
                 <div className="flex flex-row items-center justify-start text-gray-900">
-                  <a href="#">{contact.initial}</a>
+                  <Avatar
+                    size={36}
+                    bgClassName="bg-blue-300 mr-3"
+                    contact={{ name: contact.initial }}
+                  />
+                  {contact.initial}
                 </div>
               </td>
-              <td className="text-center">{contact.email}</td>
+              <td>{contact.email}</td>
               <td className="text-center">{contact.department}</td>
               <td className="text-center">{contact.contact_number}</td>
-              <td className="text-center">
-                <div className="p-4 flex justify-center space-y-4">
+              <td className="flex justify-center">
+                <div>
                   {contact.add_to_basecamp && (
                     <Checkbox name="Basecamp" checked />
                   )}

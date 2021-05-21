@@ -10,7 +10,7 @@ class Api::V1::ContactsController < Api::V1::BaseController
   def create
     @contact = Contact.new(contact_params.merge(user: current_user))
     if @contact.save
-      render json: { contact: @contact, notice: "#{@contact.initial.humanize} has been added to your contacts!" }
+      render json: { contact: @contact, notice: "Contact added successfully." }
     else
       render json: { error: @contact.errors.full_messages.to_sentence }, status: 422
     end

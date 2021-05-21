@@ -85,7 +85,7 @@ export default function NoteTable({
             <th className="text-center">Tags</th>
             <th className="text-center">Created Date</th>
             <th className="text-center">Due Date</th>
-            <th className="text-left">Contact</th>
+            <th className="text-center">Contact</th>
           </tr>
         </thead>
         <tbody>
@@ -131,7 +131,7 @@ export default function NoteTable({
                   ? moment(note.due_date).format("MMMM DD, YYYY")
                   : "--"}
               </td>
-              <td>
+              <td className="flex justify-center">
                 {note.contact_initial ? (
                   <Avatar
                     size={36}
