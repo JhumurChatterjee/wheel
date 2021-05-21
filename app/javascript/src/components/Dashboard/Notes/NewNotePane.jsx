@@ -6,7 +6,7 @@ export default function NewNotePane({ fetchNotes, showPane, setShowPane }) {
   const onClose = () => setShowPane(false);
   return (
     <Pane title="Create a New Note" isOpen={showPane} onClose={onClose}>
-      <div className="px-6">
+      <div className="px-6 mb-24">
         <NewNoteForm onClose={onClose} refetch={fetchNotes} />
       </div>
     </Pane>

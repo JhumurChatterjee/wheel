@@ -19,7 +19,7 @@ class Api::V1::NotesController < Api::V1::BaseController
   def bulk_delete
     notes = Note.where(id: params[:ids], user: current_user)
     if notes.empty?
-      render json: { error: "No users found with those IDs" }, status: 422
+      render json: { error: "No notes found with those IDs" }, status: 422
     else
       notes_count = notes.size
       notes.destroy_all
@@ -30,7 +30,7 @@ class Api::V1::NotesController < Api::V1::BaseController
   private
 
     def note_params
-      params.require(:note).permit([ :title, :description]).to_h
+      params.require(:note).permit([ :title, :description, :tag, :due_date, :contact_id]).to_h
     end
 
     def load_note
