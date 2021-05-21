@@ -37,3 +37,8 @@ $sidebar-width: 72px;
   border-bottom: thin solid theme("colors.gray.300");
   padding: 8px 12px;
 }
+
+.due-date-switch {
+  display: flex;
+  justify-content: space-between;
+}
