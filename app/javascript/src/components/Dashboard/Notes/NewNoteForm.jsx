@@ -76,7 +76,7 @@ export default function NewNoteForm({ onClose, refetch }) {
           <Input label="Note Title" name="title" className="mb-6" />
 
           <Select
-            label="Tag"
+            label="Tags"
             name="tag"
             className="mb-6"
             options={[
@@ -94,7 +94,7 @@ export default function NewNoteForm({ onClose, refetch }) {
           />
 
           <Select
-            label="Contact"
+            label="Assigned Contact"
             name="contact_id"
             options={contactList}
             className="mb-6"
@@ -114,7 +114,7 @@ export default function NewNoteForm({ onClose, refetch }) {
           </div>
 
           {dueDateEnable && (
-            <Input label="Note Due Date" name="due_date" className="mt-6" />
+            <Input label="Due Date" name="due_date" className="mt-6" />
           )}
 
           <div className="nui-pane__footer nui-pane__footer--absolute">
@@ -127,7 +127,7 @@ export default function NewNoteForm({ onClose, refetch }) {
 
             <Button
               type="submit"
-              label="Submit"
+              label="Save Changes"
               size="large"
               style="primary"
               className="ml-2"

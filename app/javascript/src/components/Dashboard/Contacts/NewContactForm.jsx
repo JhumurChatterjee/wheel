@@ -48,12 +48,12 @@ export default function NewContactForm({ onClose, refetch }) {
           <Input label="First Name" name="first_name" className="mb-6" />
           <Input label="Last Name" name="last_name" className="mb-6" />
           <Input label="Email" name="email" type="email" className="mb-6" />
-          <Input label="Department" name="department" className="mb-6" />
           <Input
             label="Contact Number"
             name="contact_number"
             className="mb-6"
           />
+          <Input label="Department" name="department" className="mb-6" />
 
           <div className="due-date-switch">
             <label>Add to Basecamp</label>
@@ -77,7 +77,7 @@ export default function NewContactForm({ onClose, refetch }) {
 
             <Button
               type="submit"
-              label="Submit"
+              label="Save Changes"
               size="large"
               style="primary"
               className="ml-2"

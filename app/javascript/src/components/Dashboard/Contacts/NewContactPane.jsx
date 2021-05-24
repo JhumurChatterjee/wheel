@@ -9,7 +9,7 @@ export default function NewContactPane({
 }) {
   const onClose = () => setShowPane(false);
   return (
-    <Pane title="Create a New Contact" isOpen={showPane} onClose={onClose}>
+    <Pane title="Add Contact" isOpen={showPane} onClose={onClose}>
       <div className="px-6 mb-24">
         <NewContactForm onClose={onClose} refetch={fetchContacts} />
       </div>
