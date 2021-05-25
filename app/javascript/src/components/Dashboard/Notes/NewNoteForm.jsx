@@ -77,26 +77,19 @@ export default function NewNoteForm({ onClose, refetch }) {
       })}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <Input label="Note Title" name="title" className="mb-6" />
+        <Form className="space-y-6">
+          <Input label="Note Title" name="title" />
+          <Select label="Tags" name="tag" options={TAGS} />
 
-          <Select label="Tags" name="tag" className="mb-6" options={TAGS} />
-
-          <Textarea
-            label="Note Description"
-            name="description"
-            rows={8}
-            className="mb-6"
-          />
+          <Textarea label="Note Description" name="description" rows={8} />
 
           <Select
             label="Assigned Contact"
             name="contact_id"
             options={contactList}
-            className="mb-6"
           />
 
-          <div className="due-date-switch">
+          <div className="flex justify-between">
             <label>Add Due Date to Note</label>
 
             <Switch

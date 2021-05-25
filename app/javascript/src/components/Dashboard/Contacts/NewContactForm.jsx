@@ -44,16 +44,12 @@ export default function NewContactForm({ onClose, refetch }) {
       })}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <Input label="First Name" name="first_name" className="mb-6" />
-          <Input label="Last Name" name="last_name" className="mb-6" />
-          <Input label="Email" name="email" type="email" className="mb-6" />
-          <Input
-            label="Contact Number"
-            name="contact_number"
-            className="mb-6"
-          />
-          <Input label="Department" name="department" className="mb-6" />
+        <Form className="space-y-6">
+          <Input label="First Name" name="first_name" />
+          <Input label="Last Name" name="last_name" />
+          <Input label="Email" name="email" type="email" />
+          <Input label="Contact Number" name="contact_number" />
+          <Input label="Department" name="department" />
 
           <div className="due-date-switch">
             <label>Add to Basecamp</label>
