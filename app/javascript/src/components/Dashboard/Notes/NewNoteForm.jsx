@@ -44,7 +44,7 @@ export default function NewNoteForm({ onClose, refetch }) {
       ...values,
       tag: values.tag.value,
       contact_id: values.contact_id.value,
-      due_date: dueDate,
+      due_date: dueDate + 1,
     };
 
     try {
