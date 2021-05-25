@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Input, Textarea, Select } from "neetoui/formik";
-import { Button, Switch, PageLoader } from "neetoui";
+import { Button, Switch, PageLoader, DateInput } from "neetoui";
+import { TAGS } from "../../../constants";
 import notesApi from "apis/notes";
 import contactsApi from "apis/contacts";
 
@@ -10,6 +11,9 @@ export default function NewNoteForm({ onClose, refetch }) {
   const [dueDateEnable, setDueDateEnable] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dueDate, setDueDate] = useState("");
+
+  const DEFAULT_DATE_FORMAT = "MM-DD-YYYY";
 
   useEffect(() => {
     fetchContacts();
@@ -40,6 +44,7 @@ export default function NewNoteForm({ onClose, refetch }) {
       ...values,
       tag: values.tag.value,
       contact_id: values.contact_id.value,
+      due_date: dueDate,
     };
 
     try {
@@ -75,16 +80,7 @@ export default function NewNoteForm({ onClose, refetch }) {
         <Form>
           <Input label="Note Title" name="title" className="mb-6" />
 
-          <Select
-            label="Tags"
-            name="tag"
-            className="mb-6"
-            options={[
-              { label: "Internal", value: "internal" },
-              { label: "Agile Workflow", value: "agile_workflow" },
-              { label: "Bug", value: "bug" },
-            ]}
-          />
+          <Select label="Tags" name="tag" className="mb-6" options={TAGS} />
 
           <Textarea
             label="Note Description"
@@ -114,7 +110,12 @@ export default function NewNoteForm({ onClose, refetch }) {
           </div>
 
           {dueDateEnable && (
-            <Input label="Due Date" name="due_date" className="mt-6" />
+            <DateInput
+              className="mt-6"
+              label="Due Date"
+              onChange={setDueDate}
+              format={DEFAULT_DATE_FORMAT}
+            />
           )}
 
           <div className="nui-pane__footer nui-pane__footer--absolute">

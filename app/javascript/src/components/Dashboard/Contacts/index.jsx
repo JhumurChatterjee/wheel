@@ -5,7 +5,6 @@ import EmptyState from "components/Common/EmptyState";
 import EmptyNotesListImage from "images/EmptyNotesList";
 import { Header, SubHeader } from "neetoui/layouts";
 import NewContactPane from "./NewContactPane";
-
 import ContactTable from "./ContactTable";
 import DeleteAlert from "../../Common/DeleteAlert";
 

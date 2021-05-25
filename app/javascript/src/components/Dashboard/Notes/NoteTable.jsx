@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, Badge, Avatar, Button, Tooltip, PageLoader } from "neetoui";
-import moment from "moment";
+import DayJS from "react-dayjs";
 import notesApi from "apis/notes";
 import DeleteAlert from "../../Common/DeleteAlert";
 
@@ -62,7 +62,7 @@ export default function NoteTable({
 
   return (
     <div className="w-full px-4">
-      <table className="nui-table nui-table--checkbox">
+      <table className="nui-table nui-table--checkbox nui-table--hover nui-table--actions">
         <thead>
           <tr>
             <th>
@@ -85,7 +85,8 @@ export default function NoteTable({
             <th className="text-center">Tags</th>
             <th className="text-center">Created Date</th>
             <th className="text-center">Due Date</th>
-            <th className="text-center">Contact</th>
+            <th className="text-left">Contact</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -114,7 +115,12 @@ export default function NoteTable({
               </td>
               <td>
                 <div className="flex flex-row items-center justify-start text-gray-900">
-                  <a href="#">{note.title}</a>
+                  <Button
+                    type="link"
+                    label={note.title}
+                    style="text"
+                    href="#"
+                  />
                 </div>
               </td>
               <td>{descTruncate(note.description, 10)}</td>
@@ -124,14 +130,16 @@ export default function NoteTable({
                 </Badge>
               </td>
               <td className="text-center">
-                {moment(note.created_at).format("MMMM DD, YYYY")}
+                <DayJS format="MMM DD, YYYY">{note.created_at}</DayJS>
               </td>
               <td className="text-center">
-                {note.due_date
-                  ? moment(note.due_date).format("MMMM DD, YYYY")
-                  : "--"}
+                {note.due_date ? (
+                  <DayJS format="MMM DD, YYYY">{note.due_date}</DayJS>
+                ) : (
+                  "--"
+                )}
               </td>
-              <td className="flex justify-center">
+              <td className="w-40 text-center pl-4">
                 {note.contact_initial ? (
                   <Avatar
                     size={36}
@@ -142,12 +150,11 @@ export default function NoteTable({
                   ""
                 )}
               </td>
-              <td>
+              <td className="flex py-6 w-20">
                 <Tooltip content="Edit" position="bottom">
-                  <Button style="icon" icon="ri-pencil-line" />
+                  <Button style="icon" icon="ri-pencil-line" className="mr-3" />
                 </Tooltip>
-              </td>
-              <td>
+
                 <Tooltip content="Delete" position="bottom">
                   <Button
                     style="icon"

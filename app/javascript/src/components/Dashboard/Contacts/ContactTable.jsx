@@ -40,7 +40,7 @@ export default function ContactTable({
 
   return (
     <div className="w-full px-4">
-      <table className="nui-table nui-table--checkbox">
+      <table className="nui-table nui-table--checkbox nui-table--hover nui-table--actions">
         <thead>
           <tr>
             <th>
@@ -63,7 +63,8 @@ export default function ContactTable({
             <th className="text-left">Email</th>
             <th className="text-center">Department</th>
             <th className="text-center">Contact Number</th>
-            <th className="text-center">Add to Basecamp</th>
+            <th className="text-center pr-0">Add to Basecamp</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -106,21 +107,18 @@ export default function ContactTable({
               <td>{contact.email}</td>
               <td className="text-center">{contact.department}</td>
               <td className="text-center">{contact.contact_number}</td>
-              <td className="flex justify-center">
-                <div>
-                  {contact.add_to_basecamp && (
-                    <Checkbox name="Basecamp" checked />
-                  )}
+              <td className="basecamp-checkbox">
+                {contact.add_to_basecamp && (
+                  <Checkbox name="Basecamp" checked />
+                )}
 
-                  {!contact.add_to_basecamp && <Checkbox name="Basecamp" />}
-                </div>
+                {!contact.add_to_basecamp && <Checkbox name="Basecamp" />}
               </td>
-              <td>
+              <td className="flex py-6">
                 <Tooltip content="Edit" position="bottom">
-                  <Button style="icon" icon="ri-pencil-line" />
+                  <Button style="icon" icon="ri-pencil-line" className="mr-3" />
                 </Tooltip>
-              </td>
-              <td>
+
                 <Tooltip content="Delete" position="bottom">
                   <Button
                     style="icon"
