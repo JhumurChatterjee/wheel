@@ -51,7 +51,7 @@ export default function NewContactForm({ onClose, refetch }) {
           <Input label="Contact Number" name="contact_number" />
           <Input label="Department" name="department" />
 
-          <div className="due-date-switch">
+          <div className="flex justify-between">
             <label>Add to Basecamp</label>
 
             <Switch
