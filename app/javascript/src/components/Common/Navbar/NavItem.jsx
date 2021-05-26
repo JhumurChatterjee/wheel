@@ -28,7 +28,7 @@ export default function NavItem({
           className,
         ],
         {
-          "text-white bg-purple-500 hover:bg-purple-600 hover:text-white": isActive,
+          "bg-gray-200": isActive,
           "text-cool-gray-600  hover:bg-cool-gray-300  hover:text-cool-gray-600 ": !isActive,
         }
       )}

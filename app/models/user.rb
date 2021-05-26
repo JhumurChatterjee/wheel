@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :trackable, :validatable, :rememberable
 
   has_many :notes, dependent: :delete_all
+  has_many :contacts, dependent: :delete_all
 
   before_save :ensure_authentication_token_is_present
 

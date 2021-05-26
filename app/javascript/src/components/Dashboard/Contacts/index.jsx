@@ -3,34 +3,33 @@ import { Button, PageLoader } from "neetoui";
 import { Header, SubHeader } from "neetoui/layouts";
 import EmptyState from "components/Common/EmptyState";
 import EmptyNotesListImage from "images/EmptyNotesList";
-import notesApi from "apis/notes";
-
-import NoteTable from "./NoteTable";
-import NewNotePane from "./NewNotePane";
+import contactsApi from "apis/contacts";
+import NewContactPane from "./NewContactPane";
+import ContactTable from "./ContactTable";
 import DeleteAlert from "../../Common/DeleteAlert";
 
-const Notes = () => {
+const Contacts = () => {
   const [loading, setLoading] = useState(true);
-  const [showNewNotePane, setShowNewNotePane] = useState(false);
+  const [showNewContactPane, setShowNewContactPane] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedNoteIds, setSelectedNoteIds] = useState([]);
-  const [notes, setNotes] = useState([]);
+  const [selectedContactIds, setSelectedContactIds] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchNotes();
+    fetchContacts();
   }, []);
 
   const handleColumnFilter = () => {
     return true;
   };
 
-  const fetchNotes = async () => {
+  const fetchContacts = async () => {
     try {
       setLoading(true);
-      const response = await notesApi.fetch();
-      setNotes(response.data);
+      const response = await contactsApi.fetch();
+      setContacts(response.data);
     } catch (error) {
       logger.error(error);
     } finally {
@@ -44,16 +43,16 @@ const Notes = () => {
   return (
     <>
       <Header
-        title="Notes"
+        title="Contacts"
         actionBlock={
           <Button
-            onClick={() => setShowNewNotePane(true)}
-            label="New Note"
+            label="New Contact"
             icon="ri-add-line"
+            onClick={() => setShowNewContactPane(true)}
           />
         }
       />
-      {notes.length ? (
+      {contacts.length ? (
         <>
           <SubHeader
             searchProps={{
@@ -63,10 +62,10 @@ const Notes = () => {
             }}
             deleteButtonProps={{
               onClick: () => setShowDeleteAlert(true),
-              disabled: !selectedNoteIds.length,
+              disabled: !selectedContactIds.length,
             }}
             paginationProps={{
-              count: notes.length,
+              count: contacts.length,
               pageSize: 10,
               pageNo: currentPage,
               navigate: pageNo => setCurrentPage(pageNo),
@@ -87,36 +86,38 @@ const Notes = () => {
             }}
             toggleFilter={val => handleColumnFilter(val)}
           />
-          <NoteTable
-            selectedNoteIds={selectedNoteIds}
-            setSelectedNoteIds={setSelectedNoteIds}
-            notes={notes}
-            setNotes={setNotes}
+          <ContactTable
+            selectedContactIds={selectedContactIds}
+            setSelectedContactIds={setSelectedContactIds}
+            contacts={contacts}
+            setContacts={setContacts}
           />
         </>
       ) : (
         <EmptyState
           image={EmptyNotesListImage}
-          title="Your Notes list is empty"
-          primaryAction={() => setShowNewNotePane(true)}
-          primaryActionLabel="Add Note"
+          primaryAction={() => setShowNewContactPane(true)}
+          title="Your Contacts list is empty"
+          primaryActionLabel="Add Contact"
         />
       )}
-      <NewNotePane
-        showPane={showNewNotePane}
-        setShowPane={setShowNewNotePane}
-        fetchNotes={fetchNotes}
+
+      <NewContactPane
+        showPane={showNewContactPane}
+        setShowPane={setShowNewContactPane}
+        fetchContacts={fetchContacts}
       />
+
       {showDeleteAlert && (
         <DeleteAlert
-          module={"notes"}
-          selectedIds={selectedNoteIds}
+          module={"contacts"}
+          selectedIds={selectedContactIds}
           onClose={() => setShowDeleteAlert(false)}
-          refetch={fetchNotes}
+          refetch={fetchContacts}
         />
       )}
     </>
   );
 };
 
-export default Notes;
+export default Contacts;
