@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Input, Textarea, Select } from "neetoui/formik";
 import { Button, Switch, PageLoader, DateInput } from "neetoui";
-
 import notesApi from "apis/notes";
 import contactsApi from "apis/contacts";
 import { TAGS } from "../../../constants";
