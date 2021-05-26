@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
+
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Input, Textarea, Select } from "neetoui/formik";
 import { Button, Switch, PageLoader, DateInput } from "neetoui";
-import { TAGS } from "../../../constants";
+
 import notesApi from "apis/notes";
 import contactsApi from "apis/contacts";
+import { TAGS } from "../../../constants";
 
 export default function NewNoteForm({ onClose, refetch }) {
   const [dueDateEnable, setDueDateEnable] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dueDate, setDueDate] = useState("");
-
   const DEFAULT_DATE_FORMAT = "MM-DD-YYYY";
 
   useEffect(() => {

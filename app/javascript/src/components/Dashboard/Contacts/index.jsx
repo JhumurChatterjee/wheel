@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import contactsApi from "apis/contacts";
 import { Button, PageLoader } from "neetoui";
+import { Header, SubHeader } from "neetoui/layouts";
 import EmptyState from "components/Common/EmptyState";
 import EmptyNotesListImage from "images/EmptyNotesList";
-import { Header, SubHeader } from "neetoui/layouts";
 import NewContactPane from "./NewContactPane";
 import ContactTable from "./ContactTable";
 import DeleteAlert from "../../Common/DeleteAlert";
+import contactsApi from "apis/contacts";
 
 const Contacts = () => {
   const [loading, setLoading] = useState(true);
